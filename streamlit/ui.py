@@ -1,32 +1,34 @@
 import streamlit as st
-from json import JSONDecodeError
+from requests_toolbelt.multipart.encoder import MultipartEncoder
 import requests
 
-st.title('Using Streamlit with a FastAPI backend')
+st.title('Image semantic segmentation')
 
+# fastapi endpoint
 url = 'http://fastapi:8000'
-endpoint = '/compute'
+endpoint = '/segmentation'
 
-st.write("This simple example uses as backend a FastAPI service. Visit http://localhost:8000/docs for its swagger documentation")
+st.write("This streamlit example uses a FastAPI service as backend. \n \
+         Visit http://localhost:8000/docs for its swagger documentation")
 
-x = st.slider('x')  # a simple widget
-
-
-def process(int: x, server_url: str):
-
-    payload = {
-        "number": x,
-    }
-
-    r = requests.post(server_url, json=payload)
-
-    try:
-        response = r.json()
-        result = response['result']
-    except JSONDecodeError:
-        pass
-
-    return result
+image = st.file_uploader('insert image')  # image widget
 
 
-st.write(x, 'after running through the API gives: ', process(x, url + endpoint))
+def process(image, server_url: str):
+
+    m = MultipartEncoder(
+        fields={'file': ('filename', image, 'image/jpeg')}
+        )
+
+    r = requests.post(server_url,
+                      data=m,
+                      headers={'Content-Type': m.content_type},
+                      timeout=8000)
+
+    return r
+
+
+if st.button('Process'):
+    segments = process(image, url+endpoint)
+    st.image(image, width=None)
+    st.image(segments.content, width=None)
