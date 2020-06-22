@@ -3,14 +3,14 @@
 In my current job I train machine learning models. When experiments show that such models can solve some company need, we often serve them to users in the form of "prototypes" deployed on internal servers. While such prototypes may not be production-ready yet, they are very useful to show to users the capabilities and limitations of the models and get feedback and release better iterations.
 
 Ideally these prototypes should have two features:
-1. have a frontend so that people can use and evaluate if the model works well enough to be useful;
-2. have a backend with API documentation so they can be moved easily to production and integrate with other applications later on. 
+1. a frontend (a user interface aka UI), so that people can use and evaluate if the model works well enough to be useful;
+2. a backend with API documentation, so they can be moved easily to production and integrated with other applications later on. 
 
-Also, one would like to accomplish all of the above quickly, so that more time can be devoted to better data and model development! ;)
+Also, it'd be nice to accomplish all of the above easily, quickly and concisely, so that more time can be devoted to better data and model development! ;)
 
-In the recent past I have dabbled in HTML and Javascript to create a UI, and used Flask to create REST services. This did the job, but:
+In the recent past I have dabbled in HTML and Javascript to create UIs, and used Flask to create the underlying backend services. This did the job, but:
 
-- I could just create very simple UIs (using bootstrap and jQuery) and needed help from colleagues to make them functional and not completely horrible.
+- I could just create very simple UIs (using bootstrap and jQuery) and needed help from my patient colleagues to make them functional and not completely horrible.
 - My Flask API endpoints were very simple, they didn't have documentation. They also served results using the server built-in Flask which is [not suitable for production](https://flask.palletsprojects.com/en/1.1.x/deploying/).
 
 ### What if both frontend and backend could be easily built with (little) Python?
