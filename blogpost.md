@@ -10,7 +10,7 @@ Also, it'd be nice to create these easily, quickly and concisely, so that more a
 
 In the recent past I have dabbled in HTML and Javascript to create UIs, and used Flask to create the underlying backend services. This did the job, but:
 
-- I could just create very simple UIs (using [bootstrap](https://getbootstrap.com/ and [jQuery](https://jquery.com/)) that were functional and not completely horrible, but had to bug my colleagues a lot!
+- I could just create very simple UIs (using [bootstrap](https://getbootstrap.com/) and [jQuery](https://jquery.com/)), but had to bug my colleagues to make them functional and not totally ugly.
 - My Flask API endpoints were very simple, they didn't have documentation. They also served results using the server built-in Flask which is [not suitable for production](https://flask.palletsprojects.com/en/1.1.x/deploying/).
 
 ### What if both frontend and backend could be easily built with (little) Python?
