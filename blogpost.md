@@ -23,7 +23,10 @@ You may already have heard of FastAPI and streamlit, two Python libraries that l
 
 So why not combine the two, and get the best of both worlds?
 
-### A simple "full-stack" application: image semantic segmentation with Deeplab
+### A simple "full-stack" application: image semantic segmentation with DeepLabV3
 
-To have streamlit working on top of FastAPI, one possibility is to have two services deployed in two Docker containers, orchestrated with `docker-compose`. The `streamlit` service serves a UI that calls (using the `requests` package) the endpoints of the `fastapi` service:
+As an example, let's take *image segmentation*, which is the task of assigning to each pixel of a given image to a category (for a primer on image segmentation, check out the [fast.ai course](https://course.fast.ai/videos/?lesson=3)).  
+There are pre-trained models (like [DeepLabV3](https://arxiv.org/pdf/1706.05587.pdf)) that can carry out this task on a predefined list of categories, and these have been already (implemented in PyTorch)[https://pytorch.org/hub/pytorch_vision_deeplabv3_resnet101/]. So how can we serve those in an a app with a streamlit frontend and FastAPI backend?
+
+One possibility is to have two services deployed in two Docker containers, orchestrated with `docker-compose`. The `streamlit` service serves a UI that calls (using the `requests` package) the endpoints of the `fastapi` service:
 
