@@ -31,12 +31,36 @@ How can we serve those in an a app with a streamlit frontend and FastAPI backend
 
 One possibility is to have two services deployed in two Docker containers, orchestrated with `docker-compose`:
 
-https://github.com/davidefiocco/streamlit-fastapi-model-serving/blob/b88c9ab9ea079d7076c0b8aa458af79a8df4de9b/docker-compose.yml#L1-L24
+```yml
+version: '3'
 
-The `streamlit` service serves a UI that calls (using the `requests` package) the endpoint exposed by the `fastapi` service, and UI elements (text, fileupload, buttons, display of results), are declared with calls to `streamlit`:
+services:
+  fastapi:
+    build: fastapi/
+    ports: 
+      - 8000:8000
+    networks:
+      - deploy_network
+    container_name: fastapi
+
+  streamlit:
+    build: streamlit/
+    depends_on:
+      - fastapi
+    ports: 
+        - 8501:8501
+    networks:
+      - deploy_network
+    container_name: streamlit
+
+networks:
+  deploy_network:
+    driver: bridge
+```
+
+The `streamlit` service serves a UI that calls (using the `requests` package) the endpoint exposed by the `fastapi` service, while UI elements (text, fileupload, buttons, display of results), are declared with calls to `streamlit`:
 
 ```python
-
 import streamlit as st
 from requests_toolbelt.multipart.encoder import MultipartEncoder
 import requests
@@ -74,5 +98,44 @@ if st.button('Get segmentation map'):
     segments = process(image, url+endpoint)
     segmented_image = Image.open(io.BytesIO(segments.content)).convert('RGB')
     st.image([image, segmented_image], width=300)
-
 ```
+
+The FastAPI backend calls some methods from an auxiliary module `segmentation.py`, and implements a `/segmentation` endpoint giving an [image in output](https://stackoverflow.com/a/55905051/4240413).
+
+
+```python
+from fastapi import FastAPI, File
+import tempfile
+from starlette.responses import FileResponse
+from segmentation import get_segmentator, get_segments
+
+model = get_segmentator()
+
+app = FastAPI(title="DeepLabV3 image segmentation",
+              description='''Obtain semantic segmentation maps of the image in input via DeepLabV3 implemented in PyTorch. 
+                           Visit this URL at port 8501 for the streamlit interface.''',
+              version="0.1.0",
+              )
+
+
+@app.post("/segmentation")
+async def get_segmentation_map(file: bytes = File(...)):
+    '''Get segmentation maps from image file'''
+    segmented_image = get_segments(model, file)
+    with tempfile.NamedTemporaryFile(mode="w+b", suffix=".png", delete=False) as outfile:
+        segmented_image.save(outfile)
+        return FileResponse(outfile.name, media_type="image/png")
+```
+
+One just needs to add Dockerfiles, `pip` requirements and the core Pytorch code (stealing from the [official tutorial](https://pytorch.org/hub/pytorch_vision_deeplabv3_resnet101/)) to come up with a complete solution. [Check it out!](https://github.com/davidefiocco/streamlit-fastapi-model-serving/).
+
+To test the application locally one can simply execute in a command line
+
+```bash
+    docker-compose build
+    docker-compose up
+```
+
+and then visit http://localhost:8000/docs with a web browser to interact with the FastAPI swagger backend and http://localhost:8501 for the streamlit UI.
+
+With essentially no changes, it's then possible to deploy the application on the web (e.g. with Heroku).

@@ -12,7 +12,7 @@ To run the example in a machine running Docker and docker-compose, run:
     docker-compose up
 
 To visit the FastAPI documentation of the resulting service, visit http://localhost:8000 with a web browser.  
-To visit the streamlit UI, visit http://localhost:8501
+To visit the streamlit UI, visit http://localhost:8501.
 
 Logs can be inspected via 
 
