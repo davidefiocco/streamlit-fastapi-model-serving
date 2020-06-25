@@ -31,32 +31,7 @@ How can we serve those in an a app with a streamlit frontend and FastAPI backend
 
 One possibility is to have two services deployed in two Docker containers, orchestrated with `docker-compose`:
 
-```yml
-version: '3'
-
-services:
-  fastapi:
-    build: fastapi/
-    ports: 
-      - 8000:8000
-    networks:
-      - deploy_network
-    container_name: fastapi
-
-  streamlit:
-    build: streamlit/
-    depends_on:
-      - fastapi
-    ports: 
-        - 8501:8501
-    networks:
-      - deploy_network
-    container_name: streamlit
-
-networks:
-  deploy_network:
-    driver: bridge
-```
+https://github.com/davidefiocco/streamlit-fastapi-model-serving/blob/b88c9ab9ea079d7076c0b8aa458af79a8df4de9b/docker-compose.yml#L1-L24
 
 The `streamlit` service serves a UI that calls (using the `requests` package) the endpoint exposed by the `fastapi` service, and UI elements (text, fileupload, buttons, display of results), are declared with calls to `streamlit`:
 
