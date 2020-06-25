@@ -129,6 +129,8 @@ async def get_segmentation_map(file: bytes = File(...)):
 
 One just needs to add Dockerfiles, `pip` requirements and the core Pytorch code (stealing from the [official tutorial](https://pytorch.org/hub/pytorch_vision_deeplabv3_resnet101/)) to come up with a [complete solution](https://github.com/davidefiocco/streamlit-fastapi-model-serving/).
 
+Note that we're dealing with images in this example, but the example above can be modified to use other kind of data in input and output!
+
 To test the application locally one can simply execute in a command line
 
 ```bash
