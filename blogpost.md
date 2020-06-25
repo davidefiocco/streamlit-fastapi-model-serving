@@ -13,7 +13,7 @@ In the recent past I have dabbled in HTML and Javascript to create UIs, and used
 - I could just create very simple UIs (using [bootstrap](https://getbootstrap.com/) and [jQuery](https://jquery.com/)), but had to bug my colleagues to make them functional and not totally ugly.
 - My Flask API endpoints were very simple, they didn't have documentation. They also served results using the server built-in Flask which is [not suitable for production](https://flask.palletsprojects.com/en/1.1.x/deploying/).
 
-### What if both frontend and backend could be easily built with (little) Python?
+## What if both frontend and backend could be easily built with (little) Python?
 
 You may already have heard of FastAPI and streamlit, two Python libraries that lately are getting quite some attention in the applied ML community. 
 
@@ -29,7 +29,7 @@ As an example, let's take *image segmentation*, which is the task of assigning t
 Semantic segmentation can be done using pre-trained models (like [DeepLabV3](https://arxiv.org/pdf/1706.05587.pdf)) on a predefined list of categories, and these have been already [implemented in PyTorch](https://pytorch.org/hub/pytorch_vision_deeplabv3_resnet101/). 
 How can we serve those in an a app with a streamlit frontend and FastAPI backend?
 
-One possibility is to have two services deployed in two Docker containers, orchestrated with `docker-compose`. The `streamlit` service serves a UI that calls (using the `requests` package) the endpoint exposed by the `fastapi` service:
+One possibility is to have two services deployed in two Docker containers, orchestrated with `docker-compose`:
 
 ```yml
 version: '3'
@@ -58,3 +58,46 @@ networks:
     driver: bridge
 ```
 
+The `streamlit` service serves a UI that calls (using the `requests` package) the endpoint exposed by the `fastapi` service, and UI elements (text, fileupload, buttons, display of results), are declared with calls to `streamlit`:
+
+```python
+
+import streamlit as st
+from requests_toolbelt.multipart.encoder import MultipartEncoder
+import requests
+from PIL import Image
+import io
+
+st.title('DeepLabV3 image segmentation')
+
+# fastapi endpoint
+url = 'http://fastapi:8000'
+endpoint = '/segmentation'
+
+st.write('''Obtain semantic segmentation maps of the image in input via DeepLabV3 implemented in PyTorch. 
+         This streamlit example uses a FastAPI service as backend.
+         Visit this URL at `:8000/docs` for FastAPI documentation.''')
+
+image = st.file_uploader('insert image')  # image widget
+
+
+def process(image, server_url: str):
+
+    m = MultipartEncoder(
+        fields={'file': ('filename', image, 'image/jpeg')}
+        )
+
+    r = requests.post(server_url,
+                      data=m,
+                      headers={'Content-Type': m.content_type},
+                      timeout=8000)
+
+    return r
+
+
+if st.button('Get segmentation map'):
+    segments = process(image, url+endpoint)
+    segmented_image = Image.open(io.BytesIO(segments.content)).convert('RGB')
+    st.image([image, segmented_image], width=300)
+
+```
