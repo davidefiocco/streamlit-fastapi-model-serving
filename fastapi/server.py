@@ -6,7 +6,7 @@ from segmentation import get_segmentator, get_segments
 model = get_segmentator()
 
 app = FastAPI(title="DeepLabV3 image segmentation",
-              description='''Obtain semantic segmentation maps of the image in input via DeepLabV3 implemented in PyTorch. 
+              description='''Obtain semantic segmentation maps of the image in input via DeepLabV3 implemented in PyTorch.
                            Visit this URL at port 8501 for the streamlit interface.''',
               version="0.1.0",
               )
