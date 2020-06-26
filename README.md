@@ -1,6 +1,6 @@
 # streamlit-fastapi-model-serving
 
-Simple example of usage of streamlit and FastAPI for ML model serving
+Simple example of usage of streamlit and FastAPI for ML model serving described on https://davidefiocco.github.io/2020/06/27/streamlit-fastapi-ml-serving.html.
 
 When developing simple APIs that serve machine learning models, it can be useful to have _both_ a backend (with API documentation) for other applications to call and a frontend for users to experiment with the functionality.
 
