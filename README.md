@@ -28,6 +28,5 @@ To deploy the app, one option is deployment on Heroku (with [Dockhero](https://e
 - in a command line enter `heroku dh:compose up -d --app <my-app>` to deploy the app
 - to find the address of the app on the web, enter `heroku dh:open --app <my-app>`
 - to visualize the api, visit the address adding port `8000/docs`, e.g. `http://dockhero-<named-assigned-to-my-app>-12345.dockhero.io:8000/docs`
-- visit the address adding `:8000/docs`, e.g. `http://dockhero-<named-assigned-to-my-app>-12345.dockhero.io:8000/docs`
 - visit the address adding `:8501` to visit the streamlit interface
 - logs are accessible via `heroku logs -p dockhero --app <my-app>`
