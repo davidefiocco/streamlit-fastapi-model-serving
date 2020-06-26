@@ -20,7 +20,7 @@ Logs can be inspected via:
 
 ### Deployment
 
-To deploy the app, one option is deployment on Heroku (with [Dockhero](https://elements.heroku.com/addons/dockhero)). To deploy
+To deploy the app, one option is deployment on Heroku (with [Dockhero](https://elements.heroku.com/addons/dockhero)). To do so:
 
 - rename `docker-compose.yml` to `dockhero-compose`
 - create an app (we refer to its name as `<my-app>`) on a Heroku account
