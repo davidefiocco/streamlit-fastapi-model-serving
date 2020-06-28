@@ -13,7 +13,7 @@ app = FastAPI(title="DeepLabV3 image segmentation",
 
 
 @app.post("/segmentation")
-async def get_segmentation_map(file: bytes = File(...)):
+def get_segmentation_map(file: bytes = File(...)):
     '''Get segmentation maps from image file'''
     segmented_image = get_segments(model, file)
     with tempfile.NamedTemporaryFile(mode="w+b", suffix=".png", delete=False) as outfile:
