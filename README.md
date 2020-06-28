@@ -22,7 +22,7 @@ Logs can be inspected via:
 
 To deploy the app, one option is deployment on Heroku (with [Dockhero](https://elements.heroku.com/addons/dockhero)). To do so:
 
-- rename `docker-compose.yml` to `dockhero-compose`
+- rename `docker-compose.yml` to `dockhero-compose.yml`
 - create an app (we refer to its name as `<my-app>`) on a Heroku account
 - add to the app the DockHero add-on (and with a plan allowing enough RAM to run the model!)
 - in a command line enter `heroku dh:compose up -d --app <my-app>` to deploy the app
