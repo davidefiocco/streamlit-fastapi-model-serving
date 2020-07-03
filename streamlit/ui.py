@@ -34,8 +34,8 @@ def process(image, server_url: str):
 if st.button('Get segmentation map'):
 
     if image == None:
-        st.write("Insert an image!")
+        st.write("Insert an image!")  # handle case with no image
     else:
         segments = process(image, url+endpoint)
         segmented_image = Image.open(io.BytesIO(segments.content)).convert('RGB')
-        st.image([image, segmented_image], width=300)
+        st.image([image, segmented_image], width=300)  # output dyptich
