@@ -12,7 +12,7 @@ endpoint = '/segmentation'
 
 st.write('''Obtain semantic segmentation maps of the image in input via DeepLabV3 implemented in PyTorch.
          This streamlit example uses a FastAPI service as backend.
-         Visit this URL at `:8000/docs` for FastAPI documentation.''') # description and instructions
+         Visit this URL at `:8000/docs` for FastAPI documentation.''')  # description and instructions
 
 image = st.file_uploader('insert image')  # image upload widget
 
@@ -33,7 +33,7 @@ def process(image, server_url: str):
 
 if st.button('Get segmentation map'):
 
-    if image == None:
+    if image is None:
         st.write("Insert an image!")  # handle case with no image
     else:
         segments = process(image, url+endpoint)
