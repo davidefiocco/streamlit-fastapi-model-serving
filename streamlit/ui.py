@@ -31,6 +31,9 @@ def process(image, server_url: str):
 
 
 if st.button('Process'):
-    segments = process(image, url+endpoint)
-    segmented_image = Image.open(io.BytesIO(segments.content)).convert('RGB')
-    st.image([image, segmented_image], width=300)
+    if image == None:
+        st.write("Insert an image!")
+    else:
+        segments = process(image, url+endpoint)
+        segmented_image = Image.open(io.BytesIO(segments.content)).convert('RGB')
+        st.image([image, segmented_image], width=300)
