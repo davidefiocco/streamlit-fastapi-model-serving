@@ -1,6 +1,6 @@
 from fastapi import FastAPI, File
-import tempfile
-from starlette.responses import FileResponse
+from starlette.responses import Response
+import io
 from segmentation import get_segmentator, get_segments
 
 model = get_segmentator()
@@ -16,6 +16,6 @@ app = FastAPI(title="DeepLabV3 image segmentation",
 def get_segmentation_map(file: bytes = File(...)):
     '''Get segmentation maps from image file'''
     segmented_image = get_segments(model, file)
-    with tempfile.NamedTemporaryFile(mode="w+b", suffix=".png", delete=False) as outfile:
-        segmented_image.save(outfile)
-        return FileResponse(outfile.name, media_type="image/png")
+    bytes_io = io.BytesIO()
+    segmented_image.save(bytes_io, format='PNG')
+    return Response(bytes_io.getvalue(), media_type="image/png")
