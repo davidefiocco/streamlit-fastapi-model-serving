@@ -1,6 +1,6 @@
 # streamlit-fastapi-model-serving
 
-Simple example of usage of streamlit and FastAPI for ML model serving described on https://davidefiocco.github.io/2020/06/27/streamlit-fastapi-ml-serving.html.
+Simple example of usage of streamlit and FastAPI for ML model serving described on <https://davidefiocco.github.io/2020/06/27/streamlit-fastapi-ml-serving.html>.
 
 When developing simple APIs that serve machine learning models, it can be useful to have _both_ a backend (with API documentation) for other applications to call and a frontend for users to experiment with the functionality.
 
@@ -30,3 +30,7 @@ To deploy the app, one option is deployment on Heroku (with [Dockhero](https://e
 - to visualize the api, visit the address adding port `8000/docs`, e.g. `http://dockhero-<named-assigned-to-my-app>-12345.dockhero.io:8000/docs`
 - visit the address adding `:8501` to visit the streamlit interface
 - logs are accessible via `heroku logs -p dockhero --app <my-app>`
+
+### Debugging
+
+To debug the app, development in containers can be useful and kind of fun! That's also described for this project specifically in <https://davidefiocco.github.io/2020/07/17/debugging-containers-with-vs-code.html>.
