@@ -33,4 +33,4 @@ To deploy the app, one option is deployment on Heroku (with [Dockhero](https://e
 
 ### Debugging
 
-To modify and debug the app, development in containers can be useful (and kind of fun)! That's is described for this project specifically in <https://davidefiocco.github.io/2020/07/17/debugging-containers-with-vs-code.html>.
+To modify and debug the app, development in containers can be useful (and kind of fun)! That's described for this project specifically in <https://davidefiocco.github.io/2020/07/17/debugging-containers-with-vs-code.html>.
