@@ -1,4 +1,4 @@
-FROM tiangolo/uvicorn-gunicorn:python3.7
+FROM python:3.7-slim
 
 RUN mkdir /streamlit
 
