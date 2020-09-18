@@ -24,6 +24,7 @@ To deploy the app, one option is deployment on Heroku (with [Dockhero](https://e
 
 - rename `docker-compose.yml` to `dockhero-compose.yml`
 - create an app (we refer to its name as `<my-app>`) on a Heroku account
+- install locally the Heroku CLI, and enable the Dockhero plugin with `heroku plugins:install dockhero`
 - add to the app the DockHero add-on (and with a plan allowing enough RAM to run the model!)
 - in a command line enter `heroku dh:compose up -d --app <my-app>` to deploy the app
 - to find the address of the app on the web, enter `heroku dh:open --app <my-app>`
