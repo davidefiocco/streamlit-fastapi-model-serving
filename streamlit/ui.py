@@ -5,8 +5,8 @@ from PIL import Image
 import io
 
 # interact with FastAPI endpoint
-url = 'http://fastapi:8000'
-endpoint = '/segmentation'
+backend = 'http://fastapi:8000/segmentation'
+
 
 def process(image, server_url: str):
 
@@ -21,8 +21,8 @@ def process(image, server_url: str):
 
     return r
 
-# construct UI layout
 
+# construct UI layout
 st.title('DeepLabV3 image segmentation')
 
 st.write('''Obtain semantic segmentation maps of the image in input via DeepLabV3 implemented in PyTorch.
@@ -33,9 +33,17 @@ input_image = st.file_uploader('insert image')  # image upload widget
 
 if st.button('Get segmentation map'):
 
-    if input_image is None:
-        st.write("Insert an image!")  # handle case with no image
-    else:
-        segments = process(input_image, url+endpoint)
+    col1, col2 = st.beta_columns(2)
+
+    if input_image:
+        segments = process(input_image, backend)
+        original_image = Image.open(input_image).convert('RGB')
         segmented_image = Image.open(io.BytesIO(segments.content)).convert('RGB')
-        st.image([input_image, segmented_image], width=300)  # output dyptich
+        col1.header("Original")
+        col1.image(original_image, use_column_width=True)
+        col2.header("Segmented")
+        col2.image(segmented_image, use_column_width=True)
+
+    else:
+        # handle case with no image
+        st.write("Insert an image!")
