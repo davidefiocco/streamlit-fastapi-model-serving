@@ -1,6 +1,6 @@
 # streamlit-fastapi-model-serving
 
-Simple example of usage of streamlit and FastAPI for ML model serving described on [this blogpost](https://davidefiocco.github.io/2020/06/27/streamlit-fastapi-ml-serving.html) and [PyConES 2020 video](https://www.youtube.com/watch?v=IvHCxycjeR0).
+Simple example of usage of streamlit and FastAPI for ML model serving described on [this blogpost](https://davidefiocco.github.io/2020/06/27/streamlit-fastapi-ml-serving) and [PyConES 2020 video](https://www.youtube.com/watch?v=IvHCxycjeR0).
 
 When developing simple APIs that serve machine learning models, it can be useful to have _both_ a backend (with API documentation) for other applications to call and a frontend for users to experiment with the functionality.
 
@@ -34,4 +34,4 @@ To deploy the app, one option is deployment on Heroku (with [Dockhero](https://e
 
 ### Debugging
 
-To modify and debug the app, [development in containers](https://davidefiocco.github.io/2020/07/17/debugging-containers-with-vs-code.html) can be useful (and kind of fun!).
+To modify and debug the app, [development in containers](https://davidefiocco.github.io/2020/07/17/debugging-containers-with-vs-code) can be useful (and kind of fun!).
