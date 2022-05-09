@@ -1,5 +1,5 @@
 fastapi==0.68.0
-pillow==8.3.2
+pillow==9.0.1
 torch==1.5.0+cpu
 torchvision==0.6.0+cpu
 python-multipart==0.0.5 
