@@ -35,3 +35,8 @@ To deploy the app, one option is deployment on Heroku (with [Dockhero](https://e
 ### Debugging
 
 To modify and debug the app, [development in containers](https://davidefiocco.github.io/debugging-containers-with-vs-code) can be useful (and kind of fun!).
+
+
+### Infrastructure model
+
+![Insfrastructure model](.infragenie/infrastructure_model.png)
