@@ -47,7 +47,7 @@ def get_segments(model, binary_image, max_size=512):
     output_predictions = output.argmax(0)
 
     # create a color palette, selecting a color for each class
-    palette = torch.tensor([2 ** 25 - 1, 2 ** 15 - 1, 2 ** 21 - 1])
+    palette = torch.tensor([2**25 - 1, 2**15 - 1, 2**21 - 1])
     colors = torch.as_tensor([i for i in range(21)])[:, None] * palette
     colors = (colors % 255).numpy().astype("uint8")
 

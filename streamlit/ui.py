@@ -33,7 +33,6 @@ st.write(
 input_image = st.file_uploader("insert image")  # image upload widget
 
 if st.button("Get segmentation map"):
-
     col1, col2 = st.columns(2)
 
     if input_image:
